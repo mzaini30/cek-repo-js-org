@@ -1,5 +1,7 @@
 fetch = require('node-fetch')
-data = 'http://localhost:2020/cnames_active.js'
+fs = require('fs')
+// data = 'http://localhost:2020/cnames_active.js'
+data = 'https://raw.githubusercontent.com/js-org/js.org/master/cnames_active.js'
 fetch(data).then(x => x.text()).then(x => {
 	eval(x)
 	data = []
@@ -21,5 +23,22 @@ fetch(data).then(x => x.text()).then(x => {
 			x.repo = `${pisah[0].replace('.github.io', '')}/${pisah[1] ? pisah[1] : pisah[0]}`
 		}
 	}
-	console.log(data)
+	kosong = []
+	fs.writeFile('hasil.txt', '', () => {})
+	angka = 0
+	jalankan = setInterval(() => {
+		data.splice(angka, angka + 49).map(x => {
+			fetch(`https://github.com/${x.repo}`).then(z => z.text()).then(hasil => {
+				if (hasil.includes('<title>Page not found')) {
+					kosong.push('\n' + 'https://github.com/' + x.repo)
+				}
+				fs.writeFile('hasil.txt', kosong, () => {})
+			})
+		})
+		angka += 50
+		console.log('Loading...')
+		if (angka > data.length){
+			clearInterval(jalankan)
+		}
+	}, 5000)
 })
