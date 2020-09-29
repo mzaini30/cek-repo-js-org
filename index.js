@@ -26,19 +26,18 @@ fetch(data).then(x => x.text()).then(x => {
 	kosong = []
 	fs.writeFile('hasil.txt', '', () => {})
 	angka = 0
-	jalankan = setInterval(() => {
-		data.splice(angka, angka + 49).map(x => {
-			fetch(`https://github.com/${x.repo}`).then(z => z.text()).then(hasil => {
-				if (hasil.includes('<title>Page not found')) {
-					kosong.push('\n' + 'https://github.com/' + x.repo)
-				}
-				fs.writeFile('hasil.txt', kosong, () => {})
-			})
+	jalankan = () => {
+		fetch(`https://github.com/${data[angka].repo}`).then(z => z.text()).then(hasil => {
+			console.log(`Cek ${data[angka].repo}`)
+			if (hasil.includes('<title>Page not found')) {
+				kosong.push('\n' + 'https://github.com/' + data[angka].repo)
+			}
+			fs.writeFile('hasil.txt', kosong, () => {})
+			angka += 1
+			if (angka < data.length){
+				jalankan()
+			}
 		})
-		angka += 50
-		console.log('Loading...')
-		if (angka > data.length){
-			clearInterval(jalankan)
-		}
-	}, 5000)
+	}
+	jalankan()
 })
