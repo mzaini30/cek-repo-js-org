@@ -3,4 +3,7 @@ https://github.com/js-org/js-org.github.io,
 https://github.com/am-77/amine,
 https://github.com/ardasoyturk/ardasoyturk.github.io,
 https://github.com/asdivyansh/asdivyansh.github.io,
-https://github.com/sawyerbx/atom-git-docs
+https://github.com/sawyerbx/atom-git-docs,
+https://github.com/sawyerbx/quotes,
+https://github.com/meshesha/jspptxjs.github.io,
+https://github.com/randyviandaputra/randyviandaputra.github.io
